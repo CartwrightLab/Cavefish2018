@@ -30,7 +30,7 @@ fitness = function(x,k,s,h) {
 }
 
 # Do one generation of simulaiton
-simnext = function(x,N,k,m,s,h,u,Q,q0) {
+simnext = function(x,N,k,m,s,h,u,Q) {
     # calculate the fitness of every individual
     w = fitness(x,k,s,h)
     
@@ -55,14 +55,14 @@ sim = function(G1,G2,N,k,m,s,h,u,Q,q0) {
     ret[["0"]] = x
     g = 1
     while(g <= G1) {
-        x = simnext(x,N,k,0,s,h,u,Q,q0)
+        x = simnext(x,N,k,0,s,h,u,Q)
         if(g %% 1000 == 0) {
             ret[[as.character(g)]] = x
         }
         g = g + 1
     }
     while(g <= G1+G2) {
-        x = simnext(x,N,k,m,s,h,u,Q,q0)
+        x = simnext(x,N,k,m,s,h,u,Q)
         if(g %% 1000 == 0) {
             ret[[as.character(g)]] = x
         }
@@ -106,7 +106,7 @@ if(!interactive()) {
     ARGS = commandArgs(trailingOnly = TRUE)
     if(length(ARGS) == 0 || ARGS[1] == "") {
         # if no args passed, print header
-        params[params_list] = c(0,1,1,0,0,0,0,0,0)
+        params[params_list] = c(0,0,1,1,0,0,0,0,0,0)
         d = main(params)
         d = cbind(params,d)
         d = names(d)
