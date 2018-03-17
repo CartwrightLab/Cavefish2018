@@ -1,0 +1,21 @@
+
+library(RColorBrewer)
+
+bcz = brewer.pal(10,"RdYlBu")
+keylevels = seq(0,1,length.out=length(bcz)+1)
+keytext = keylevels
+
+a = fread("zstdcat temp.csv.zst")
+b = a[, .(qbar = mean(q)), by=list(m,s,g)]
+
+
+xcat = sort(unique(b$m))
+ycat = sort(unique(b$s))
+x = match(bb$m,xcat)
+y = match(bb$s,ycat)
+z = dcast(bb, m~s, value.var="qbar")
+
+z = as.matrix(z[-1,])
+
+filled.contour()
+
