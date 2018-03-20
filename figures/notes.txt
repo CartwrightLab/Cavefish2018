@@ -1,13 +1,12 @@
-
+library(data.table)
 library(RColorBrewer)
 
 bcz = brewer.pal(10,"RdYlBu")
 keylevels = seq(0,1,length.out=length(bcz)+1)
 keytext = keylevels
 
-a = fread("zstdcat temp.csv.zst")
+a = fread("zstdcat ../molino/results.csv.zst")
 b = a[, .(qbar = mean(q)), by=list(m,s,g)]
-
 
 xcat = sort(unique(b$m))
 ycat = sort(unique(b$s))
